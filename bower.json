@@ -23,5 +23,14 @@
   ],
   "dependencies": {
     "angularjs-slider": "2.10.x"
+  },
+  "install": {
+    "path": "public/deps",
+    "sources": {
+      "angularjs-slider": [
+        "bower_components/angularjs-slider/dist/rzslider.css",
+        "bower_components/angularjs-slider/dist/rzslider.min.js"
+      ]
+    }
   }
 }

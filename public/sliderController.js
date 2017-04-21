@@ -110,7 +110,7 @@ define(function (require) {
 
       if (fieldTypes) {
         fields = $filter('fieldType')(fields, fieldTypes);
-        fields = $filter('filter')(fields, { bucketable: true });
+        fields = $filter('filter')(fields, { });
         fields = $filter('orderBy')(fields, ['type', 'name']);
       }
 

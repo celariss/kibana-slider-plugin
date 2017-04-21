@@ -1,6 +1,6 @@
 define(function (require) {
-  require('plugins/kibana-slider-plugin/bower_components/angularjs-slider/dist/rzslider.css');
-  require('plugins/kibana-slider-plugin/bower_components/angularjs-slider/dist/rzslider.min.js');
+  require('plugins/kibana-slider-plugin/deps/angularjs-slider/rzslider.css');
+  require('plugins/kibana-slider-plugin/deps/angularjs-slider/rzslider.min.js');
   require('plugins/kibana-slider-plugin/slider.less');
   require('plugins/kibana-slider-plugin/sliderController');
   require('ui/registry/vis_types').register(SliderVisProvider);
