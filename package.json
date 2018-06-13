@@ -1,4 +1,11 @@
 {
-	"name": "kibana-slider-plugin",
-	"version": "5.5.3"
+  "name": "kibana-slider-plugin",
+  "version": "6.0.0",
+  "kibana": {
+    "version": "6.2.2"
+  },
+  "dependencies": {
+    "angular": "^1.7.1",
+    "angularjs-slider": "^6.5.1"
+  }
 }
