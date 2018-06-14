@@ -9,8 +9,11 @@ import { uiModules } from 'ui/modules';
 const module = uiModules.get('kibana/kibana-slider-plugin', ['kibana', 'rzModule']);
 
 
-module.controller('KbnSliderVisController', function ($scope, $element, $rootScope, Private, $filter) {
+module.controller('KbnSliderVisController', function ($scope, $element, $rootScope, Private, $filter, $location) {
   const queryFilter = Private(FilterBarQueryFilterProvider);
+
+  // Set to true in editing mode
+  var configMode = $location.path().indexOf('/visualize/') !== -1;
 
   $rootScope.plugin = {
     sliderPlugin: {}
@@ -44,19 +47,22 @@ module.controller('KbnSliderVisController', function ($scope, $element, $rootSco
   $scope.filter = function (range) {
     const currentFilter = $scope.findFilter();
 
-    if(currentFilter) {
+    if (currentFilter) {
       previousFilterRange = currentFilter.meta.params;
       queryFilter.removeFilter(currentFilter);
     }
     else
       previousFilterRange = null;
 
-    const fieldName = $scope.config.selectedField;
-    if(fieldName && fieldName.length > 0 && range) {
-      const rangeFilter = buildRangeFilter({ name: fieldName },
-        range,
-        $scope.vis.indexPattern);
-      queryFilter.addFilters(rangeFilter);
+    // we don't want to filter in visu config mode
+    if (!configMode) {
+      const fieldName = $scope.config.selectedField;
+      if (fieldName && fieldName.length > 0 && range) {
+        const rangeFilter = buildRangeFilter({ name: fieldName },
+          range,
+          $scope.vis.indexPattern);
+        queryFilter.addFilters(rangeFilter);
+      }
     }
   };
 
@@ -115,7 +121,7 @@ module.controller('KbnSliderVisController', function ($scope, $element, $rootSco
   };
 
   $scope.$watch('esResponse', function (resp) {
-    if (resp.hits.total==0) {
+    if (resp.hits.total == 0) {
       // If the response doesn't show any value, we cancel current filter to prevent the slider from disappearing
       if (previousFilterRange) {
         $scope.config.slider.min = previousFilterRange.gte;
